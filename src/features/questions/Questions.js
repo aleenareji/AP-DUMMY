@@ -14,10 +14,8 @@ import  AddQuestion from './AddQuestion';
 
 
 function Questions(props) {
-  console.log('props -->', props);
-  //  console.log('Data -->',Data);
-  const [queries, setQueries] = useState('');
 
+  const [queries, setQueries] = useState('');
   const [deptFilter, setDeptFilter] = useState(null);
   const [roleFilter, setRoleFilter] = useState(null);
   const [levelFilter, setLevelFilter] = useState(null);
@@ -34,9 +32,9 @@ function Questions(props) {
 
 
   const onAddQuestionModalOpen = () => {
-    console.log('addQuestionModal CLICKED');
     setAddQuestionModal(true);
   };
+
   const onCloseAddQuestionModal = () => {
     setAddQuestionModal(false);
   };
@@ -45,19 +43,14 @@ function Questions(props) {
     setAddQuestionModal(false);
   };
 
-  const onCreateQuestion = (question) => {
+  const onCreateQuestion = async(question) => {
     var test = [];
-    console.log('RESULT -->',question);
-    console.log('levelFilter in onCreateQuestion',levelFilter);
-    console.log('deptFilter in onCreateQuestion',deptFilter);
     question['questionId']
-    // setLevelFilter(...levelFilter,question)
-    console.log('levelFilter FINALLY',levelFilter );
-    // setLevelFilter({...question}, ...levelFilter);
-    setLevelFilter(levelFilter.push(question));
+    await setLevelFilter(levelFilter.push(question));
+    setAddQuestionModal(false);
+
 
   }
-  console.log('levelFilter 12121',levelFilter);
 
   const addQuestionModal = () => {
     if (!isAddQuestionModalOpen) return '';
@@ -83,17 +76,13 @@ function Questions(props) {
 
   const onFilterChange = (event, values) => {
     setDeptFilter(values);
-    console.log('values -->', values);
-
   }
 
   const onRolesFilterChange = (event, values) => {
     setRoleFilter(values);
-    console.log('values in Roles -->', values);
   }
 
   const onLevelsFilterChange = (event, values) => {
-    console.log('values in Levels -->', values);
     setLevelFilter(values ? values.roles.levels.questions : '')
   }
 
@@ -153,7 +142,6 @@ function Questions(props) {
 }
 
 function mapStateToProps(state) {
-  console.log('state -->', state.questions.getQuestions);
   return {
     getQuestions: state.questions.getQuestions,
 

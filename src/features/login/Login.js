@@ -16,7 +16,6 @@ class Login extends Component {
 
   responseGoogle = response => {
     this.setState({ userDetails: response.profileObj, isUserLoggedIn: true });
-    console.log(response,'res');
   };
 
   logout = () => {
@@ -24,7 +23,6 @@ class Login extends Component {
   };
 
   render() {
-    console.log('isUserLoggedIn -->',this.state.isUserLoggedIn);
     return (
       <React.Fragment>
         {!this.state.isUserLoggedIn && (

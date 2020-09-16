@@ -17,10 +17,6 @@ export default class App extends Component {
 
   render() {
     const isUserLoggedIn = this.props ? this.props.isUserLoggedIn :'';
-    console.log(this.props,"PROPS");
-    // if (!isUserLoggedIn) {
-    //   return <Redirect to="/login" />;
-    // }
     return (
       <React.Fragment>
       <div> 

@@ -20,15 +20,12 @@ const AddQuestion = (props) => {
   }
  
   const  onSaveAddQuestion = (Question) => {
- 
-    console.log('ALEENA -->',Question);
     props.onSaveQuestion(Question);
   }
 
   const onCancelAddQuestion = () => {
     props.onCancel();
   };
-  console.log('question obj-->', question);
 
 
   return (
@@ -73,42 +70,6 @@ const AddQuestion = (props) => {
         </Form>
       )}
     </Formik>
-    // <React.Fragment>
-    //   <form onSubmit={onSaveAddQuestion}>
-    //     <div>
-    //     <div className="row">
-    //       <div className="col-4">
-    //         <label className="form-group">Enter your QuestionId:</label>
-    //         </div>
-    //         <div className="col-8">
-    //         <input type="text" value={question.questionId} onChange={onQuestionIdChange} />
-    //         </div>
-    //         </div>
-    //         {/* </div> */}
-    //         <div className="row">
-    //         <div className="col-4">
-    //         <label className="form-group">Enter your Question:</label>
-    //         </div>
-    //         <div className="col-8">
-    //         <textarea type="text" value={question.query} onChange={onQuestionChange} />
-    //         </div>
-    //       </div>
-    //       <div className="modal-footer">
-    //           <button type="submit" className="btn btn-submit">
-    //             ADD
-    //           </button>
-    //           <button
-    //             type="button"
-    //             className="btn"
-    //             onClick={onCancelAddQuestion}
-    //             data-dismiss="modal"
-    //           >
-    //             CANCEL
-    //           </button>
-    //         </div>
-    //       </div>
-    //     </form>
-    // </React.Fragment>
   )
 }
 
