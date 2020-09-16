@@ -1,0 +1,97 @@
+@color-primary: #9932cc;
+@color-primary-dark: #7e2da7;
+@color-primary-light: #9441bd;
+@color-white: #fff;
+@color-grey: #eeeeee;
+@color-input-border: #bce0fd;
+@color-light-grey: #f7f7f7;
+@color-medium-grey: #dddddd;
+@color-border-dashed: #3ba3fb;
+@color-input-background: #f3f3f3;
+@color-dark-grey: #999999;
+@color-xdark: #666666;
+@color-positive: #10b467;
+@color-negative: #d83232;
+@color-joy: #fdcb6e;
+@color-text-joy: #8b651b;
+@color-anger: #fc7b7b;
+@color-text-anger: #7b1a1a;
+@color-fear: #a29bfe;
+@color-text-fear: #462994;
+@color-sadness: #b2bec3;
+@color-text-sadness: #4d6677;
+@color-point-down: #ff4757;
+@color-point-up: #2ed573;
+@color-input-msg: #bbbbbb;
+@color-danger: #e76f6f;
+@color-facebook: #2680eb;
+@color-linkedin: #007aaa;
+@color-youtube: #ff0000;
+@color-reddit: #ff4301;
+@color-twitter: #5bd8ff;
+@color-hover: #7e2da7;
+@color-button-active: #9441bd;
+@color-button-disabled: #cccccc;
+@color-calender-range: #d6ecfe;
+@color-checkbox: #b8b8b8;
+
+@color-toaster-error: #e76f6f;
+@color-toaster-warning: #ff9500;
+@color-toaster-info: #0080ed;
+@color-toaster-success: #39c684;
+
+@font-h4: 16px;
+@font-h3: 24px;
+@font-xsmall: 10px;
+@font-small: 12px;
+@font-medium: 14px;
+@font-large: 18px;
+@font-xlarge: 21px;
+@font-icon-xsmall: 16px;
+@font-icon-small: 20px;
+@font-icon-medium: 24px;
+@font-icon-large: 28px;
+@font-icon-xlarge: 36px;
+@font-icon-xxlarge: 100px;
+@font-image: 72px;
+
+@font-family-text: Arial, Helvetica, sans-serif;
+@font-family-icon: LineAwesome;
+
+@box-shadow-2-6-a: 0px 2px 6px #0000000a;
+@box-shadow-4-20-33: 0px 4px 20px #00000033;
+@box-shadow-3-6-29: 0px 3px 6px #00000029;
+
+::-webkit-scrollbar {
+  width: 7px !important;
+}
+::-webkit-scrollbar-track {
+  background: @color-medium-grey;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb {
+  background: @color-primary;
+  border-radius: 2px;
+}
+
+.btn-default {
+  border-radius: 4px;
+  background: @color-primary;
+  border: none;
+  color: @color-white;
+  height: 32px;
+  &:focus {
+    outline: 0 !important;
+  }
+
+  @media screen and (max-width: 584px) {
+    label {
+      display: none;
+    }
+  }
+  @media screen and (min-width: 768px) and (max-width: 834px) {
+    label {
+      display: none;
+    }
+  }
+}

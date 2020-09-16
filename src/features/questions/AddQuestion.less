@@ -1,0 +1,11 @@
+@import '../../styles/mixins';
+
+.modal-footer {
+    padding: 20px !important;
+    .btn {
+      &.disabled {
+        pointer-events: none;
+        background: @color-button-disabled;
+      }
+    }
+  }

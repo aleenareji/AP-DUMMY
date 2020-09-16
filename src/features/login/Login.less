@@ -1,0 +1,74 @@
+@import '../../styles/mixins';
+
+.google-login-btn {
+    display: flex !important;
+    .login-page{
+      background: darkorchid;
+    }
+    .login {
+      display: flex;
+      height: 100vh;
+      background: white;
+      align-items: center;
+      justify-content: center;
+      width: 360px;
+      .login-container {
+        .login-header {
+          text-align: center;
+          margin-bottom: 50px;
+          .logo-img {
+            text-align: center;
+            width: 210px;
+            height: 53px;
+          }
+        }
+        .details {
+          width: 312px;
+          height: 41px;
+          text-align: center;
+          color: #424b5b;
+          opacity: 65%;
+          font-size: 17px;
+          line-height: 25px;
+          font-family: Sofia Pro;
+          margin-bottom: 51px;
+        }
+        .login-footer {
+          text-align: center;
+        }
+      }
+      .welcome {
+        text-align: center;
+      }
+      &:first-child {
+        @media screen and (max-width: 768px) {
+          display: none !important;
+        }
+      }
+      @media screen and (max-width: 768px) {
+        min-width: 100% !important;
+      }
+    }
+  }
+  .userDetails-wrapper{
+    padding: 20px;
+    .logout-button {
+        float: right;
+        font-size: 17px;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+        border: none;
+        border-radius: 50px;
+        width: 83px;
+        background-color: darkorchid;
+        color: #fff;
+        padding: 5px;
+        outline: none;
+    }
+    .user-content{
+      text-align: center;
+    }
+
+  }
+  

@@ -1,0 +1,170 @@
+@import './mixins';
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+
+  .modal {
+    &.modal-show {
+      display: block !important;
+      background: rgba(0, 0, 0, 0.6);
+    }
+    &.modal-hide {
+      display: none !important;
+    }
+    border: none;
+    .modal-dialog {
+      color: @color-xdark;
+      min-width: 640px !important;
+      .modal-content {
+        .modal-header {
+          border: none !important;
+          align-items: center;
+          height: 56px;
+          .modal-title {
+            font-weight: bold;
+            font-size: @font-large;
+            line-height: 12px;
+          }
+          i {
+            cursor: pointer;
+            font-size: 17px;
+            font-weight: bold;
+            color: @color-xdark;
+            line-height: 32px;
+            &:hover {
+              color: #000;
+            }
+            &.user-close {
+              font-size: 28px;
+              line-height: 38px;
+            }
+          }
+        }
+        .modal-footer {
+          border: 0 !important;
+          .btn {
+            width: 120px;
+            height: 45px;
+            font-size: @font-small;
+            font-weight: bold;
+            color: @color-primary;
+            line-height: 30px;
+            border: 2px solid @color-primary;
+            background-color: @color-white;
+            margin-left: 20px;
+            &.btn-submit {
+              background: @color-primary;
+              color: @color-white;
+            }
+            &.btn-delete {
+              background: @color-danger;
+              color: @color-white;
+              border: none;
+              &:hover {
+                background: @color-negative;
+              }
+            }
+            &:hover {
+              color: @color-white;
+              background: @color-hover;
+            }
+            &:focus {
+              outline: 0 !important;
+              box-shadow: none;
+            }
+          }
+        }
+        .styled-checkbox {
+          position: absolute;
+          opacity: 0;
+          width: 18px;
+
+          & + label {
+            position: relative;
+            text-transform: capitalize;
+            cursor: pointer;
+            font-size: @font-medium;
+            line-height: 12px;
+            padding: 0;
+          }
+
+          & + label:before {
+            content: '';
+            margin-right: 10px;
+            display: inline-block;
+            vertical-align: middle !important;
+            width: 20px;
+            height: 20px;
+            margin-top: -2px;
+            font-size: @font-medium;
+            background: transparent;
+            border: 1px solid @color-dark-grey;
+          }
+          &:disabled + label {
+            color: @color-checkbox;
+            cursor: auto;
+          }
+
+          &:disabled + label:before {
+            box-shadow: none;
+            background: @color-medium-grey;
+          }
+
+          &:checked + label:after {
+            content: '\f17b';
+            position: absolute;
+            left: 1px;
+            font-family: @font-family-icon;
+            top: -2px;
+            color: @color-primary;
+            font-size: @font-large;
+            line-height: 22px;
+          }
+          &:checked + label:before {
+            border: 1px solid @color-primary;
+          }
+        }
+      }
+    }
+  }
+}
+.MuiButtonBase-root {
+  outline: none !important;
+}
+.milestone-btn {
+  color: #ffffff !important;
+  background-color: #325892e6 !important;
+  border-color: #325892e6 !important;
+}
+
+input:disabled {
+  background-color: #e0e0e0 !important;
+  color: #757575 !important;
+  cursor: default !important;
+}
+
+.react-date-picker--disabled {
+  background-color: #e0e0e0 !important;
+  color: #757575 !important;
+  cursor: default !important;
+}
+textarea:disabled {
+  background-color: #e0e0e0 !important;
+  color: #757575 !important;
+  cursor: default !important;
+}
+button:disabled {
+  background-color: #e0e0e0 !important;
+  color: #757575 !important;
+  cursor: default !important;
+}
+.disable-scorll {
+  overflow: hidden;
+}
+.table-loader {
+  position: fixed;
+  top: 5vh;
+  left: 50vw;
+}
