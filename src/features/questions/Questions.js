@@ -21,6 +21,7 @@ function Questions(props) {
   const [levelFilter, setLevelFilter] = useState(null);
   const [filterData, setFilterData] = useState(null);
   const [getResponse, setGetResponse] = useState(props.getQuestions)
+  // const [getResponse, setGetResponse] = useState(Data);
   const [getUpdatedQuires,setGetUpdatedQuires] = useState(null);
   const [isAddQuestionModalOpen, setAddQuestionModal] = useState(false);
 

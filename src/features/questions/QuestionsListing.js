@@ -3,7 +3,7 @@ import MUIDataTable from "mui-datatables";
 import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
-import { set, every } from 'lodash';
+import { set, every, find } from 'lodash';
 import { RPDialog, DataTableHeader } from '../shared-components';
 import EditQuestion from './EditQuestion';
 
@@ -25,17 +25,20 @@ export default function QuestionsListing(props) {
 
   }
 
-  const onEditQuestionSave = (qwerty) => {
-    console.log('qwerty ---->',qwerty);
-    console.log('questions ------>',questions);
-
+  const onEditQuestionSave = (dataOnSave) => {
+    const formattedData = questions.map(question => {
+      if(question[0] === dataOnSave[0]){
+        question[1] = dataOnSave[1];
+        return question;
+      }
+    })
+    setIsModalOpen(false);
   }
 
   useEffect(() => {
     setEditQuestionData(editQuestionData)
   }, [editQuestionData])
 
-  console.log('editQuestionData --------->', editQuestionData);
 
   const editQuestionModalClose = () => {
     setIsModalOpen(false);
@@ -86,7 +89,6 @@ export default function QuestionsListing(props) {
       options: {
         customBodyRender: (value, tableMeta, updateValue) => {
           const updatedQuestion = tableMeta.rowData;
-          console.log('updatedQuestion Delete -->', updatedQuestion);
           return (
             <DeleteIcon variant="contained" color="primary" style={pointer} onClick={() => {
               setQuestions(questions.filter(item => !item.every((id, question) => id === updatedQuestion[question])));
