@@ -7,7 +7,7 @@ import ErrorLabel from '../shared-components/ErrorLabel';
 const AddQuestion = (props) => {
 
   const [question, setQuestion] = useState({
-    questionId: '',
+    // questionId: '',
     query: ''
   })
 
@@ -35,19 +35,19 @@ const AddQuestion = (props) => {
       query: Yup.string()
         .max(35, 'Must be 35 characters or less')
         .required('Required'),
-        questionId: Yup.number()
-        .required('Required'),
+        // questionId: Yup.number()
+        // .required('Required'),
     })}
     onSubmit={onSaveAddQuestion}
     >
       {({errors,setFieldValue,setFieldTouched,values,handleChange}) => (
         <Form noValidate>
           <div className="row">
-            <div className="col">
+            {/* <div className="col">
             <label className="form-group">Enter your QuestionId:</label>
             <Field name="questionId"  type="text" className="form-control" />
             <ErrorLabel validate={errors.questionId} message={errors.questionId} />
-            </div>
+            </div> */}
             <div className="col">
             <label className="form-group">Enter your Question:</label>
             <Field name="query"  as="textarea" className="form-control" />

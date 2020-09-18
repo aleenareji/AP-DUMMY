@@ -6,10 +6,10 @@ import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Box from '@material-ui/core/Box';
 
-// import Data from './Data';
+import Data from './Data';
 import QuestionsListing from './QuestionsListing';
 import { RPDialog, DataTableHeader } from '../shared-components'
-import  AddQuestion from './AddQuestion';
+import AddQuestion from './AddQuestion';
 
 
 
@@ -22,14 +22,25 @@ function Questions(props) {
   const [filterData, setFilterData] = useState(null);
   const [getResponse, setGetResponse] = useState(props.getQuestions)
   // const [getResponse, setGetResponse] = useState(Data);
-  const [getUpdatedQuires,setGetUpdatedQuires] = useState(null);
+  const [getUpdatedQuires, setGetUpdatedQuires] = useState(null);
   const [isAddQuestionModalOpen, setAddQuestionModal] = useState(false);
 
 
-  const retrieveQuestions = async () => {
-    const { retrieveQuestions } = props.actions;
-    await retrieveQuestions();
-  };
+  const [question, setQuestion] = useState([]);
+  const [newQuestion, setNewQuestion] = useState('');
+  const [updateQuestion, setUpdateQuestion] = useState('');
+  useEffect(() => {
+    const readQuestion = () => {
+      if (localStorage.getItem('questions') !== '[]' && localStorage.getItem('questions') !== null) {
+        setQuestion(JSON.parse(localStorage.getItem('questions')));
+        // localStorage.clear();
+      }
+      else
+        setQuestion(Data);
+        // localStorage.clear();
+    }
+    readQuestion()
+  }, []);
 
 
   const onAddQuestionModalOpen = () => {
@@ -44,14 +55,75 @@ function Questions(props) {
     setAddQuestionModal(false);
   };
 
-  const onCreateQuestion = async(question) => {
-    var test = [];
-    question['questionId']
-    await setLevelFilter(levelFilter.push(question));
-    setAddQuestionModal(false);
+  const getDeleteQusetionData = (data) =>{
+    console.log(question[0],'question[0]');
+    console.log(data,'data--->');
+
+
+    if (deptFilter.department === 'Delivery') {
+      // setQuestion(...question[0].roles.levels.questions,data)
+      const test1=question[0].roles.levels.questions;
+      console.log(test1,'test1');
+      setQuestion(...test1,[data.slice(0)]);
+       
+      
+      // setQuestion({question[0].roles.levels.questions,data.slice(0)})
+
+      // question[0].roles.levels.questions.push(data);
+      localStorage.setItem('questions', JSON.stringify(question));
+    }
+    if (deptFilter.department === 'Business and Development') {
+      // question[1].roles.levels.questions.push(data);
+      localStorage.setItem('questions', JSON.stringify(question));
+    }
 
 
   }
+
+  const onCreateQuestion = (newQuestion) => {
+    let questionId;
+    if (deptFilter.department === 'Delivery') {
+      question.map(item => {
+        if (item.department === 'Delivery') {
+          const getId = question[0].roles.levels.questions;
+          const updatedId = getId.reduce((prev, current) => (+prev.questionId > +current.questionId) ? prev : current)
+          const newId = updatedId.questionId + 1;
+          const updatedQuestion = {
+            questionId: newId,
+            query: newQuestion.query
+          }
+          question[0].roles.levels.questions.push(updatedQuestion);
+          localStorage.setItem('questions', JSON.stringify(question));
+          // localStorage.clear();
+          setNewQuestion('');
+          setAddQuestionModal(false);
+
+        }
+      })
+    }
+    if (deptFilter.department === 'Business and Development') {
+      const getId = question[1].roles.levels.questions;
+      const updatedId = getId.reduce((prev, current) => (+prev.questionId > +current.questionId) ? prev : current)
+      const newId = updatedId.questionId + 1;
+      const updatedQuestion = {
+        questionId: newId,
+        query: newQuestion.query
+      }
+
+      question.map(item => {
+  
+        if (item.department === 'Business and Development') {
+          question[1].roles.levels.questions.push(updatedQuestion);
+          localStorage.setItem('questions', JSON.stringify(question));
+          setNewQuestion('');
+          setAddQuestionModal(false);
+
+        }
+      })
+    }
+  }
+
+
 
   const addQuestionModal = () => {
     if (!isAddQuestionModalOpen) return '';
@@ -61,14 +133,10 @@ function Questions(props) {
         open={isAddQuestionModalOpen}
         onClose={onCloseAddQuestionModal}
       >
-        <AddQuestion onCancel={onCancelAddQuestion} onSaveQuestion={onCreateQuestion}/>
+        <AddQuestion onCancel={onCancelAddQuestion} onSaveQuestion={onCreateQuestion} />
       </RPDialog>
     );
   };
-
-  useEffect(() => {
-    retrieveQuestions();
-  }, []);
 
 
   useEffect(() => console.log(deptFilter, 'filtered department value in dropdown'), [deptFilter]);
@@ -93,7 +161,7 @@ function Questions(props) {
         <div className="col-4">
           <Autocomplete
             id="department"
-            options={getResponse}
+            options={question}
             onChange={onFilterChange}
             getOptionLabel={(option) => option.department}
             style={{ width: 300 }}
@@ -133,6 +201,7 @@ function Questions(props) {
       </div>
       <Box pt={3}>
         <QuestionsListing
+          onDeleteQuestion={getDeleteQusetionData}
           questionsList={[levelFilter]}
         />
       </Box>
