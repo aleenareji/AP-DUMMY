@@ -18,7 +18,7 @@ export default function QuestionsListing(props) {
   const [questions, setQuestions] = useState(null);
   const [isEditModalOpen, setIsModalOpen] = useState(false);
   const [editQuestionData, setEditQuestionData] = useState(null);
-  const [formattedArrayToDelete,setFormattedArrayToDelete] =useState(null);
+  const [formattedArrayToDelete, setFormattedArrayToDelete] = useState(null);
 
   const editQuestionModalOpen = (editQuestion) => {
     setEditQuestionData(editQuestion);
@@ -36,25 +36,18 @@ export default function QuestionsListing(props) {
     setIsModalOpen(false);
   }
 
-
-  // const _mapToArray = (quires) => {
-  //   const updatedQuires = quires.map((str,index) => ( {questionId:str[0],query:str[1]}));
-  //   return updatedQuires;
-  // }
-
-
   const onDelete = (deleteQuestion) => {
-    const filteredData = questions.filter(item => !item.every((id, question) => id === deleteQuestion[question]));
-    const updatedQuires = filteredData.map((str,index) => ( {questionId:str[0],query:str[1]}));
-    console.log('updatedQuires -------->',updatedQuires);
-    // setFormattedArrayToDelete(_mapToArray(filteredData))
-    props.onDeleteQuestion(updatedQuires);
+    const updatedDelete = {
+      questionId: deleteQuestion[0],
+      query: deleteQuestion[1]
+    };
+    props.onDeleteQuestion(updatedDelete);
   }
-  console.log('formattedArrayToDelete --->',formattedArrayToDelete);
+  console.log('formattedArrayToDelete --->', formattedArrayToDelete);
 
-  useEffect(() =>{
+  useEffect(() => {
     setFormattedArrayToDelete(formattedArrayToDelete)
-  },[formattedArrayToDelete])
+  }, [formattedArrayToDelete])
 
   useEffect(() => {
     setEditQuestionData(editQuestionData)
@@ -76,7 +69,6 @@ export default function QuestionsListing(props) {
         <EditQuestion onCancel={editQuestionModalClose} editData={editQuestionData} onSave={onEditQuestionSave} />
       </RPDialog>
     )
-
   }
 
   useEffect(() => {
@@ -123,8 +115,6 @@ export default function QuestionsListing(props) {
     }
 
   ];
-
-
 
   const options = {
     filterType: 'checkbox',

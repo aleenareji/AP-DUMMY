@@ -37,7 +37,7 @@ function Questions(props) {
       }
       else
         setQuestion(Data);
-        // localStorage.clear();
+      // localStorage.clear();
     }
     readQuestion()
   }, []);
@@ -55,29 +55,39 @@ function Questions(props) {
     setAddQuestionModal(false);
   };
 
-  const getDeleteQusetionData = (data) =>{
-    console.log(question[0],'question[0]');
-    console.log(data,'data--->');
-
+  const getDeleteQusetionData = (data) => {
 
     if (deptFilter.department === 'Delivery') {
-      // setQuestion(...question[0].roles.levels.questions,data)
-      const test1=question[0].roles.levels.questions;
-      console.log(test1,'test1');
-      setQuestion(...test1,[data.slice(0)]);
-       
-      
-      // setQuestion({question[0].roles.levels.questions,data.slice(0)})
-
-      // question[0].roles.levels.questions.push(data);
+      const queryData = question[0].roles.levels.questions;
+      const formattedData = queryData.filter(item =>
+        item.questionId !== data.questionId
+      );
+      setQuestion(question.map(item => {
+        if (item.department === 'Delivery') {
+          setLevelFilter(formattedData);
+          return question[0].roles.levels.questions = formattedData
+        }
+        else
+          return item;
+      }))
       localStorage.setItem('questions', JSON.stringify(question));
     }
+
     if (deptFilter.department === 'Business and Development') {
-      // question[1].roles.levels.questions.push(data);
+      const queryData = question[1].roles.levels.questions;
+      const formattedData = queryData.filter(item =>
+        item.questionId !== data.questionId
+      );
+      setQuestion(question.map(item => {
+        if (item.department === 'Business and Development') {
+          setLevelFilter(formattedData);
+          return question[1].roles.levels.questions = formattedData
+        }
+        else
+          return item;
+      }))
       localStorage.setItem('questions', JSON.stringify(question));
     }
-
-
   }
 
   const onCreateQuestion = (newQuestion) => {
@@ -94,10 +104,8 @@ function Questions(props) {
           }
           question[0].roles.levels.questions.push(updatedQuestion);
           localStorage.setItem('questions', JSON.stringify(question));
-          // localStorage.clear();
           setNewQuestion('');
           setAddQuestionModal(false);
-
         }
       })
     }
@@ -111,19 +119,15 @@ function Questions(props) {
       }
 
       question.map(item => {
-  
         if (item.department === 'Business and Development') {
           question[1].roles.levels.questions.push(updatedQuestion);
           localStorage.setItem('questions', JSON.stringify(question));
           setNewQuestion('');
           setAddQuestionModal(false);
-
         }
       })
     }
   }
-
-
 
   const addQuestionModal = () => {
     if (!isAddQuestionModalOpen) return '';
@@ -141,7 +145,8 @@ function Questions(props) {
 
   useEffect(() => console.log(deptFilter, 'filtered department value in dropdown'), [deptFilter]);
   useEffect(() => console.log(roleFilter, 'filtered role value in dropdown'), [roleFilter]);
-  useEffect(() => console.log(levelFilter, 'filtered level value in dropdown'), [levelFilter])
+  useEffect(() => console.log(levelFilter, 'filtered level value in dropdown'), [levelFilter]);
+
 
   const onFilterChange = (event, values) => {
     setDeptFilter(values);
