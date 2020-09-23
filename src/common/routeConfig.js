@@ -5,9 +5,10 @@ import homeRoute from '../features/home/route';
 import loginRoute from '../features/login/route';
 import commonRoute from '../features/common/route';
 import questionRoute from '../features/questions/route';
+import SendNotification from '../features/sendNotification/route';
 import _ from 'lodash';
 
-const childRoutes = [homeRoute, commonRoute,loginRoute,questionRoute];
+const childRoutes = [homeRoute, commonRoute,loginRoute,questionRoute,SendNotification];
 
 const routes = [
   {

@@ -19,6 +19,11 @@ export default function QuestionsListing(props) {
   const [isEditModalOpen, setIsModalOpen] = useState(false);
   const [editQuestionData, setEditQuestionData] = useState(null);
   const [formattedArrayToDelete, setFormattedArrayToDelete] = useState(null);
+  const [isDeleteQuestionModalOpen, setDeleQuestionModal] = useState(false);
+  const [deleteQuestion, setDeleteQuestion] = useState({
+    questionId: '',
+    query: '',
+  });
 
   const editQuestionModalOpen = (editQuestion) => {
     setEditQuestionData(editQuestion);
@@ -30,20 +35,77 @@ export default function QuestionsListing(props) {
     const formattedData = questions.map(question => {
       if (question[0] === dataOnSave[0]) {
         question[1] = dataOnSave[1];
+        const _mapToEdit = {
+          questionId:question[0],
+          query:question[1]
+        }
+        props.editQuestions(_mapToEdit);
+       
+
         return question;
       }
+    
     })
     setIsModalOpen(false);
   }
 
-  const onDelete = (deleteQuestion) => {
-    const updatedDelete = {
-      questionId: deleteQuestion[0],
-      query: deleteQuestion[1]
-    };
-    props.onDeleteQuestion(updatedDelete);
+  const onCloseDeleteModal = () => {
+    setDeleQuestionModal(false);
+  };
+
+  const onRemoveModal = (removeQuestion) =>{
+    setDeleteQuestion({questionId:removeQuestion[0],query:removeQuestion[1],})
+    setDeleQuestionModal(true);
+
+
   }
-  console.log('formattedArrayToDelete --->', formattedArrayToDelete);
+
+
+  const onDelete = (deleteQuestion) => {
+    console.log('deleteQuestion ----->',deleteQuestion);
+    props.onDeleteQuestion(deleteQuestion);
+    setDeleQuestionModal(false);
+  }
+
+
+  const deleteQuestionModal = () => {
+    const { questionId, query } = deleteQuestion;
+    if (!isDeleteQuestionModalOpen) return '';
+    return (
+      <RPDialog
+        title="Delete Question"
+        open={isDeleteQuestionModalOpen}
+        onClose={onCloseDeleteModal}
+      >
+        <div className="customers-container">
+          <div className="delete-confirmation">
+            {query !== '' && questionId !== '' ? (
+              <p>
+                You are deleting <strong>'{query}'</strong>. This action cannot be undone.
+                Proceed?
+              </p>
+            ) : (
+              ''
+            )}
+          </div>
+
+          <div className="modal-footer">
+            <button type="button" className="btn" data-dismiss="modal" onClick={onCloseDeleteModal}>
+              CANCEL
+            </button>
+            <button
+              type="submit"
+              onClick={() => onDelete(deleteQuestion)}
+              className="btn btn-delete"
+            >
+              DELETE
+            </button>
+          </div>
+        </div>
+      </RPDialog>
+    );
+
+  }
 
   useEffect(() => {
     setFormattedArrayToDelete(formattedArrayToDelete)
@@ -104,7 +166,8 @@ export default function QuestionsListing(props) {
           const updatedQuestion = tableMeta.rowData;
           return (
             <DeleteIcon variant="contained" color="primary" style={pointer} onClick={() => {
-              onDelete(updatedQuestion)
+              // onDelete(updatedQuestion)
+              onRemoveModal(updatedQuestion)
             }}>
             </DeleteIcon>
           );
@@ -127,12 +190,15 @@ export default function QuestionsListing(props) {
   return (
     <React.Fragment>
       {editQuestionModal()}
+      {deleteQuestionModal()}
       <MUIDataTable
         title="Questions"
         data={questions !== null ? questions : []}
         columns={columns}
         options={options}
       />
+     
     </React.Fragment>
+   
   )
 }

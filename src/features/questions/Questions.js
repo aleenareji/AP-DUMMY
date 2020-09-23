@@ -90,6 +90,32 @@ function Questions(props) {
     }
   }
 
+  const onEditQuestion = (editData) =>{
+
+    const editTest =question[0].roles.levels.questions;
+    // const checkEdit = editTest.map(queryData => {
+    //   if(queryData.questionId === editData.questionId){
+    //     queryData.query =editData.query;
+        
+    //   }
+    // })
+    // setQuestion(editTest.map(queryData => {
+
+      // queryData.questionId === editData.questionId ? {...queryData, query:editData.query} :queryData
+      // if(queryData.department === 'Delivery'){
+        // if(queryData.questionId !== editData.questionId)
+          // return queryData
+          // queryData.query = editData.query;
+          // return queryData;
+        // return {...queryData, query:queryData.query}
+
+      // }
+    // }));
+    // localStorage.setItem('questions', JSON.stringify(question));
+
+  // }
+  }
+
   const onCreateQuestion = (newQuestion) => {
     let questionId;
     if (deptFilter.department === 'Delivery') {
@@ -208,6 +234,7 @@ function Questions(props) {
         <QuestionsListing
           onDeleteQuestion={getDeleteQusetionData}
           questionsList={[levelFilter]}
+          editQuestions={onEditQuestion}
         />
       </Box>
 

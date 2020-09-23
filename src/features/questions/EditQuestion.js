@@ -55,11 +55,11 @@ const EditQuestion = (props) => {
       {({ errors, setFieldValue, setFieldTouched, values, handleChange }) => (
         <Form noValidate>
           <div className="row">
-            <div className="col">
+            {/* <div className="col">
               <label className="form-group">Enter your QuestionId:</label>
               <Field name="questionId" type="text" className="form-control" />
               <ErrorLabel validate={errors.questionId} message={errors.questionId} />
-            </div>
+            </div> */}
             <div className="col">
               <label className="form-group">Enter your Question:</label>
               <Field name="query" as="textarea" className="form-control" />

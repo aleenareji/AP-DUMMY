@@ -10,6 +10,7 @@ const AddQuestion = (props) => {
     // questionId: '',
     query: ''
   })
+  const [isFormDisabled, setFormDisable] = useState(true);
 
   const onQuestionIdChange = (event) => {
     setQuestion({ ...question, questionId: event.target.value })
@@ -43,11 +44,6 @@ const AddQuestion = (props) => {
       {({errors,setFieldValue,setFieldTouched,values,handleChange}) => (
         <Form noValidate>
           <div className="row">
-            {/* <div className="col">
-            <label className="form-group">Enter your QuestionId:</label>
-            <Field name="questionId"  type="text" className="form-control" />
-            <ErrorLabel validate={errors.questionId} message={errors.questionId} />
-            </div> */}
             <div className="col">
             <label className="form-group">Enter your Question:</label>
             <Field name="query"  as="textarea" className="form-control" />
@@ -55,7 +51,7 @@ const AddQuestion = (props) => {
             </div>
           </div>
           <div className="modal-footer">
-              <button type="submit" className="btn btn-submit">
+              <button type="submit" className="btn btn-submit" isDisabled={isFormDisabled} >
                 ADD
               </button>
               <button

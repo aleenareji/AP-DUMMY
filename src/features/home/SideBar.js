@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 const navMenu = [
   { path: '/dashboard/questions', name: 'Questions', icon: 'question-circle' },
+  {path: '/dashboard/send-notification', name:' Send Notification',icon:'envelope'},
   // { path: '/dashboard/project', name: 'Project', icon: 'file' },
   // { path: '/dashboard/customers', name: 'Customers', icon: 'user' },
 ];
