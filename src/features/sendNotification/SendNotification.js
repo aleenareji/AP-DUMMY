@@ -10,7 +10,6 @@ import Users from './Users';
 import Box from '@material-ui/core/Box';
 
 const SendNotification = () => {
-  console.log('users --->', Users);
 
   const [deptFilter, setDeptFilter] = useState(null);
   const [roleFilter, setRoleFilter] = useState(null);

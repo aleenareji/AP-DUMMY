@@ -3,12 +3,14 @@ import MUIDataTable from "mui-datatables";
 import { DataTableHeader } from '../shared-components'
 import SendIcon from '@material-ui/icons/Send';
 import Box from '@material-ui/core/Box';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const Users = (props) => {
 
   const [users, setUsers] = useState(null);
   const [selectedCheckbox, setSelectedCheckbox] = useState(null);
   const [selectedUsers, setSelectedUsers] = useState(null);
+  const [isChecked,setIsChecked] = useState(false);
   const pointer = { cursor: 'pointer' };
 
   const _mapUsersToTable = (user) => {
@@ -22,6 +24,16 @@ const Users = (props) => {
     }
   }, [props.usersList])
 
+  useEffect(() => {
+    if((Array.isArray(selectedCheckbox) && selectedCheckbox.length)){
+      setIsChecked(true);
+    }
+    if((selectedCheckbox === null || selectedCheckbox.length < 1)){
+      setIsChecked(false);
+    }
+
+  },[selectedCheckbox])
+
 
   useEffect(() => {
     let checkedData = [];
@@ -33,7 +45,6 @@ const Users = (props) => {
         }
         if (typeof selectedCheckbox != "undefined" && selectedCheckbox != null
          && selectedCheckbox.length != null && selectedCheckbox.length > 0) {
-          console.log("yes");
       }
        
       }))
@@ -51,7 +62,6 @@ const Users = (props) => {
   ];
 
   const onRowSelectionChange = (currentRowsSelected, allRowsSelected, rowsSelected) => {
-    console.log('rowsSelected --->',rowsSelected);
     setSelectedCheckbox(rowsSelected)
   }
 
@@ -64,18 +74,16 @@ const Users = (props) => {
       },
     },
   };
-console.log('selectedUsers --->',selectedUsers);
+console.log('selectedCheckbox --->',selectedCheckbox);
   return (
     <React.Fragment>
-      { (typeof selectedCheckbox != "undefined" && selectedCheckbox != null
-         && selectedCheckbox.length != null && selectedCheckbox.length > 0) ?
-          // <DataTableHeader 
-          //  icon={SendIcon}
-          // />
+      { 
+      (isChecked) ?
           <Box m={2}>
-          <SendIcon variant="contained" color="primary" style={pointer}/>
+             <Tooltip title="Send">
+             <SendIcon variant="contained" color="primary" style={pointer} onClick={()=> setIsChecked(false)}/>
+             </Tooltip>
           </Box>
-
          :''}
     <MUIDataTable
       title="Users"

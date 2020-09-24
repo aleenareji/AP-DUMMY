@@ -62,7 +62,6 @@ export default function QuestionsListing(props) {
 
 
   const onDelete = (deleteQuestion) => {
-    console.log('deleteQuestion ----->',deleteQuestion);
     props.onDeleteQuestion(deleteQuestion);
     setDeleQuestionModal(false);
   }
