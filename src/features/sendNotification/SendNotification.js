@@ -2,77 +2,93 @@ import React, { useState, useEffect } from 'react';
 import { DatePicker } from '../shared-components';
 import Grid from '@material-ui/core/Grid';
 import emailjs from 'emailjs-com';
+import UsersData from './data/UsersData';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import TextField from '@material-ui/core/TextField';
+import { values } from 'lodash';
+import Users from './Users';
+import Box from '@material-ui/core/Box';
 
 const SendNotification = () => {
+  console.log('users --->', Users);
 
-    const [h1Date, setH1Date] = useState(new Date());
-    const [h2Date, setH2Date] = useState(new Date());
-    const onH1HandleChange = (date) => {
-        setH1Date(date);
-    }
-    const onH2HandleChange = (date) => {
-        setH2Date(date);
-    }
+  const [deptFilter, setDeptFilter] = useState(null);
+  const [roleFilter, setRoleFilter] = useState(null);
+  const [levelFilter, setLevelFilter] = useState(null);
+  const [users, setUsers] = useState(UsersData);
 
-    const sendEmail = (e) => {
-        e.preventDefault();
+  const onDeptFilterChange = (event, values) => {
+    setDeptFilter(values);
+  }
 
-        emailjs.sendForm('gmail', 'template_gms5g9d', e.target, 'user_FZ8H6qcFe9rERoGsx9YkU')
-            .then((result) => {
-                console.log(result.text);
-            }, (error) => {
-                console.log(error.text);
-            });
-        e.target.reset();
-    }
+  const onRolesFilterChange = (event, values) => {
+    setRoleFilter(values);
+  }
 
+  const onLevelsFilterChange = (event, values) => {
+    setLevelFilter(values ? values.roles.levels.users : '');
 
-    return (
-        <Grid>
-            <Grid className="row">
+  }
 
-                <Grid className="col-6">
-                    <DatePicker
-                        value={h1Date}
-                        onChange={onH1HandleChange}
-                        label="H1 date"
-                    />
-                </Grid>
-                <Grid className="col-6">
-                    <DatePicker
-                        value={h2Date}
-                        onChange={onH2HandleChange}
-                        label="H2 date"
-                    />
-                </Grid>
-
-            </Grid>
-            <Grid className="row">
-                <form  onSubmit={sendEmail}>
-                    <Grid className="col">
-                        <p1>Send Notification</p1>
-
-                    </Grid>
-                    <Grid className="col">
-                        <label className="form-group">Enter your Message:</label>
-                    </Grid>
-                    <Grid className="col-6">
-                        <textarea name="message" />
-                    </Grid>
-                    <Grid className="col">
-                        <input type="submit" value="Send" />
-                    </Grid>
-
-                </form>
-
-            </Grid>
-        </Grid>
+  useEffect(() => {
+    console.log(deptFilter, 'deptFilter');
+  }, [deptFilter]);
+  useEffect(() => {
+    console.log(roleFilter, 'roleFilter');
+  }, [roleFilter]);
+  useEffect(() => {
+    console.log(levelFilter, 'levelFilter');
+  }, [levelFilter]);
 
 
 
+  return (
+    <React.Fragment>
+      <div className="row">
+        <div className="col-4">
+          <Autocomplete
+            id="department"
+            options={users}
+            onChange={onDeptFilterChange}
+            getOptionLabel={(option) => option.department}
+            style={{ width: 300 }}
+            renderInput={(params) => <TextField {...params} label="Select Department" variant="outlined" />}
+          />
+        </div>
 
+        <div className="col-4">
+          <Autocomplete
+            id="roles"
+            options={[deptFilter]}
+            onChange={onRolesFilterChange}
+            getOptionLabel={(option) => option ? option.roles.position : ""}
+            style={{ width: 300 }}
+            renderInput={(params) => <TextField {...params} label="Select Department" variant="outlined" />}
+          />
 
-    )
+        </div>
+
+        <div className="col-4">
+          <Autocomplete
+            id="levels"
+            options={[roleFilter]}
+            onChange={onLevelsFilterChange}
+            getOptionLabel={(option) => option ? option.roles.levels.grade : ""}
+            style={{ width: 300 }}
+            renderInput={(params) => <TextField {...params} label="Select Department" variant="outlined" />}
+          />
+
+        </div>
+      </div>
+        <Box pt={3}>
+          <Users
+            usersList={[levelFilter]}
+          />
+        </Box>
+
+    </React.Fragment>
+  )
+
 
 }
 

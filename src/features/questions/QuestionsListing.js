@@ -196,8 +196,7 @@ export default function QuestionsListing(props) {
         data={questions !== null ? questions : []}
         columns={columns}
         options={options}
-      />
-     
+      />     
     </React.Fragment>
    
   )
