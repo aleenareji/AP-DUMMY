@@ -1,16 +1,93 @@
-import initialState from './initialState';
-import { reducer as retrieveQuestions } from './retrieveQuestions';
+// import initialState from './initialState';
+// import { reducer as retrieveQuestions } from './retrieveQuestions';
 
-const reducers = [retrieveQuestions];
+// const reducers = [retrieveQuestions];
 
+// export default function reducer(state = initialState, action) {
+//   let newState;
+//   switch (action.type) {
+//     // Handle cross-topic actions here
+//     default:
+//       newState = state;
+//       break;
+//   }
+//   /* istanbul ignore next */
+//   return reducers.reduce((s, r) => r(s, action), newState);
+// }
+
+
+
+
+import {
+  RETRIEVE_QUESTIONS_BEGIN,
+  RETRIEVE_QUESTIONS_SUCCESS,
+  RETRIEVE_QUESTIONS_FAILURE,
+
+} from './question.actions';
+const initialState = {
+  retrieveQuestionsBegin: false,
+  retrieveQuestionsFailure: false,
+  getQuestions: [
+    {
+        department:"Delivery", deptId:1,
+            roles:{
+                roleId:2, position:"Software Engineer",
+                 levels:{
+                    levelId:3, grade:"L1",
+                     questions:[
+                         { questionId:1, query:"What programming languages have you used in the past? What are your top two programming languages?"},
+                         {questionId:2, query:"How much are you coding on a daily basis? If you do not code on a daily basis, what is typical in your role?"},
+                         { questionId:3, query:"How comfortable are you in a startup environment, or do you prefer working in a more established company? ?"},
+                         { questionId:4, query:"What distinguishes a great software engineer from a good one? Do you feel you have those qualities?"}
+                        ]
+
+                 }
+            }},
+            {
+            department:"Business and Development", deptId:2,
+            roles:{
+                roleId:2, position:"BA",
+                 levels:{
+                    levelId:3, grade:"L4",
+                    questions:[
+                        { questionId:1, query:"How would you handle changes to the scope of a project if a client or manager wanted to add a major feature?"},
+                        {questionId:2, query:"How would you update or improve a critical process that was initially formed around out-of-date technology?"},
+                        { questionId:3, query:"Your team is falling behind an important project. How do you get them back on track?"},
+                        { questionId:4, query:"What software, tools and frameworks do you use to keep track of a project?"},
+                    ]
+                 }
+                }
+            }
+        ],
+};
 export default function reducer(state = initialState, action) {
   let newState;
   switch (action.type) {
-    // Handle cross-topic actions here
+  
+ 
+    case RETRIEVE_QUESTIONS_BEGIN:
+      return {
+        ...state,
+        retrieveQuestionsBegin: true,
+        retrieveQuestionsFailure: false,
+      };
+    case RETRIEVE_QUESTIONS_SUCCESS:
+      return {
+        ...state,
+        retrieveQuestionsBegin: false,
+      };
+    case RETRIEVE_QUESTIONS_FAILURE:
+      return {
+        ...state,
+        getQuestions:action.getQuestions,
+        retrieveQuestionsBegin: false,
+        retrieveQuestionsFailure: true,
+      };
+
     default:
       newState = state;
       break;
   }
-  /* istanbul ignore next */
-  return reducers.reduce((s, r) => r(s, action), newState);
+  return newState;
 }
+

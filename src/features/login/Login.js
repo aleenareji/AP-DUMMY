@@ -2,12 +2,12 @@ import React, { useState, Component } from 'react';
 import GoogleLogin from "react-google-login";
 import { GoogleLogout } from "react-google-login";
 import { App } from '../../features/home';
-// import L from './LoginStyles.scss';
+import history from '../../common/history';
 
 
 class Login extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       userDetails: {},
       isUserLoggedIn: false
@@ -16,10 +16,16 @@ class Login extends Component {
 
   responseGoogle = response => {
     this.setState({ userDetails: response.profileObj, isUserLoggedIn: true });
+    const data ='token'
+    localStorage.setItem('myToken', data);
+    history.push('/dashboard');
   };
+ 
+  
 
   logout = () => {
     this.setState({ isUserLoggedIn: false })
+    localStorage.removeItem('myToken');
   };
 
   render() {
@@ -49,28 +55,6 @@ class Login extends Component {
             </div>
           </div>
         )}
-        {/* <App /> */}
-
-
-         {this.state.isUserLoggedIn && (
-          <div className="userDetails-wrapper">
-              <GoogleLogout
-                render={renderProps => (
-                  <button
-                    className="logout-button"
-                    onClick={renderProps.onClick}
-                  >
-                    Logout
-                  </button>
-                )}
-                onLogoutSuccess={this.logout}
-              />
-
-             <App 
-             isUserLoggedIn={this.state.isUserLoggedIn}
-             />
-              </div>
-       )}
       </React.Fragment>
     );
   }

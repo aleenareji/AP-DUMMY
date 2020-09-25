@@ -1,7 +1,7 @@
 import { App } from '../features/home';
-import { Login } from '../features/login';
 import { PageNotFound } from '../features/common';
 import homeRoute from '../features/home/route';
+import Login from '../features/login/Login';
 import loginRoute from '../features/login/route';
 import commonRoute from '../features/common/route';
 import questionRoute from '../features/questions/route';

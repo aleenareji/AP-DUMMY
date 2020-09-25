@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as actions from './redux/actions';
+// import * as actions from './redux/actions';
+// import * as actions from './redux/project.effects';
+import * as actions from './redux/question.effects';
+
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Box from '@material-ui/core/Box';
@@ -36,12 +39,16 @@ function Questions(props) {
         // localStorage.clear();
       }
       else
-        setQuestion(Data);
+        setQuestion(props.getQuestions);
       // localStorage.clear();
     }
     readQuestion()
   }, []);
 
+  const retrieveQuestions = async () => {
+    const { retrieveQuestions } = props.actions;
+    await retrieveQuestions();
+  };
 
   const onAddQuestionModalOpen = () => {
     setAddQuestionModal(true);
@@ -54,6 +61,8 @@ function Questions(props) {
   const onCancelAddQuestion = () => {
     setAddQuestionModal(false);
   };
+
+
 
   const getDeleteQusetionData = (data) => {
 
@@ -168,6 +177,10 @@ function Questions(props) {
     );
   };
 
+
+  useEffect(() => {
+    retrieveQuestions();
+  }, []);
 
   useEffect(() => console.log(deptFilter, 'filtered department value in dropdown'), [deptFilter]);
   useEffect(() => console.log(roleFilter, 'filtered role value in dropdown'), [roleFilter]);
