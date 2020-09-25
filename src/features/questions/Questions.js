@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-// import * as actions from './redux/actions';
-// import * as actions from './redux/project.effects';
 import * as actions from './redux/question.effects';
 
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Box from '@material-ui/core/Box';
+import {retrieveQuestions} from './redux/question.effects'
 
-import Data from './Data';
+// import Data from './Data'; 
 import QuestionsListing from './QuestionsListing';
 import { RPDialog, DataTableHeader } from '../shared-components'
 import AddQuestion from './AddQuestion';
@@ -40,7 +39,6 @@ function Questions(props) {
       }
       else
         setQuestion(props.getQuestions);
-      // localStorage.clear();
     }
     readQuestion()
   }, []);
@@ -49,6 +47,10 @@ function Questions(props) {
     const { retrieveQuestions } = props.actions;
     await retrieveQuestions();
   };
+
+  useEffect(() => {
+    retrieveQuestions();
+  }, []);
 
   const onAddQuestionModalOpen = () => {
     setAddQuestionModal(true);
@@ -97,32 +99,6 @@ function Questions(props) {
       }))
       localStorage.setItem('questions', JSON.stringify(question));
     }
-  }
-
-  const onEditQuestion = (editData) =>{
-
-    const editTest =question[0].roles.levels.questions;
-    // const checkEdit = editTest.map(queryData => {
-    //   if(queryData.questionId === editData.questionId){
-    //     queryData.query =editData.query;
-        
-    //   }
-    // })
-    // setQuestion(editTest.map(queryData => {
-
-      // queryData.questionId === editData.questionId ? {...queryData, query:editData.query} :queryData
-      // if(queryData.department === 'Delivery'){
-        // if(queryData.questionId !== editData.questionId)
-          // return queryData
-          // queryData.query = editData.query;
-          // return queryData;
-        // return {...queryData, query:queryData.query}
-
-      // }
-    // }));
-    // localStorage.setItem('questions', JSON.stringify(question));
-
-  // }
   }
 
   const onCreateQuestion = (newQuestion) => {
@@ -178,9 +154,7 @@ function Questions(props) {
   };
 
 
-  useEffect(() => {
-    retrieveQuestions();
-  }, []);
+
 
   useEffect(() => console.log(deptFilter, 'filtered department value in dropdown'), [deptFilter]);
   useEffect(() => console.log(roleFilter, 'filtered role value in dropdown'), [roleFilter]);
@@ -247,7 +221,6 @@ function Questions(props) {
         <QuestionsListing
           onDeleteQuestion={getDeleteQusetionData}
           questionsList={[levelFilter]}
-          editQuestions={onEditQuestion}
         />
       </Box>
 
@@ -265,7 +238,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators({ ...actions }, dispatch),
+    actions: bindActionCreators({ retrieveQuestions }, dispatch),
   };
 }
 

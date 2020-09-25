@@ -18,6 +18,7 @@ class Login extends Component {
     this.setState({ userDetails: response.profileObj, isUserLoggedIn: true });
     const data ='token'
     localStorage.setItem('myToken', data);
+    // localStorage.clear();
     history.push('/dashboard');
   };
  

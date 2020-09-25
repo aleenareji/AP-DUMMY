@@ -1,1 +1,0 @@
-export { retrieveQuestions } from './retrieveQuestions';

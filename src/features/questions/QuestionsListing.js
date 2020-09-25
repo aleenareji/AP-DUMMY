@@ -76,7 +76,7 @@ export default function QuestionsListing(props) {
         open={isDeleteQuestionModalOpen}
         onClose={onCloseDeleteModal}
       >
-        <div className="customers-container">
+        <div className="questions-container">
           <div className="delete-confirmation">
             {query !== '' && questionId !== '' ? (
               <p>
